@@ -10,10 +10,7 @@ class Usuario extends CI_Controller {
 		parent::__construct();
 		$this->load->model('usuario_model','usuario');
 		$this->load->helper('url');
-
-		
 	}
-
 
 //routes page
 	public function index()
@@ -28,19 +25,16 @@ class Usuario extends CI_Controller {
 
 		$user = $this->usuario->inicio($this->input->post('usunombre'), $pass);
 
-
-		$newdata = array(
-        'USUID'  	=> $user->USUID,
-        'USUNOMBRE'	=> $user->USUNOMBRE,
-        );
-
-
-		if($user==NULL)
+		if($user==NULL)//si el usuario no existe o autentificó erróneamente se devuelve a la página de login (falta mensaje).
 		{
 			redirect('/');
 		}
-		else
+		else//si se autentica, se setean los atributos de sesión con el id del usuario y el nombre. Posteriormente se redirige al controlador person.
 		{
+			$newdata = array(
+	        'USUID'  	=> $user->USUID,
+	        'USUNOMBRE'	=> $user->USUNOMBRE,
+	        );
 			$this->session->set_userdata($newdata);
 			redirect('person');
 		}
@@ -109,7 +103,7 @@ class Usuario extends CI_Controller {
 			$row[] = $usuario->FECHA_INGRESO;
 			$row[] = $usuario->CREADO;
 			$row[] = $usuario->ACTUALIZADO;
-			$row[] = $usuarIO->LAST_UPDATE;
+			$row[] = $usuariO->LAST_UPDATE;
 			
 			//add html for action
 			$row[] = '<a class="btn btn-sm btn-warning" href="javascript:void(0)" title="Eliminar" onclick="delete_user('."'".$person->USUID."'".')"><i class="glyphicon glyphicon-trash"></i> Historial</a>';
