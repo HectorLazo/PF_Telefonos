@@ -250,6 +250,7 @@ class Usuario extends CI_Controller {
 		$data['inputerror'] = array();
 		$data['status'] = TRUE;
 		$len=$this->input->post('p_id2');
+		$this->input->post()
 		$n=strlen($len);
 
 		if($this->input->post('p_id2') == '')
